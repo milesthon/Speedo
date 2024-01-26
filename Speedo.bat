@@ -11,8 +11,9 @@ ECHO.&ECHO.
 ECHO        Check update..
 ECHO        Проверка обновлений..
 curl -# --ssl-no-revoke --insecure -L https://github.com/milesthon/Speedo/raw/main/Speedo.bat -o "%temp%\CheckSpeedoVersion.txt"
+if %errorlevel% neq 0 goto noupdate
 ECHO.&ECHO.
-findstr /c:"CheckSpeedoVersion 23012024" "%temp%\CheckSpeedoVersion.txt" > nul
+findstr /c:"CheckSpeedoVersion 26012024" "%temp%\CheckSpeedoVersion.txt" > nul
 if %errorlevel%==0 (
 goto noupdate
 ) else (
@@ -359,6 +360,12 @@ REG DELETE "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v NonBestEffortLim
 
 cls
 echo.
-echo Done!
-pause
+set /p choice=Reboot pc? Y or N 
+if /i "%choice%"=="y" (
+echo Rebooting in 10 seconds. Press any key to cancel.
+timeout -t 4 |findstr "\<0\>" && shutdown -r -t 0 -f || echo cancelled
+) else (
 exit
+)
+
+pause
