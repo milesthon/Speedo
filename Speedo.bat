@@ -13,7 +13,7 @@ ECHO        Проверка обновлений..
 curl -# --ssl-no-revoke --insecure -L https://github.com/milesthon/Speedo/raw/main/Speedo.bat -o "%temp%\CheckSpeedoVersion.txt"
 if %errorlevel% neq 0 goto noupdate
 ECHO.&ECHO.
-findstr /c:"CheckSpeedoVersion 26012024" "%temp%\CheckSpeedoVersion.txt" > nul
+findstr /c:"CheckSpeedoVersion 21022024" "%temp%\CheckSpeedoVersion.txt" > nul
 if %errorlevel%==0 (
 goto noupdate
 ) else (
@@ -108,10 +108,12 @@ echo Wait..
 
 :: Default MSConfig
 bcdedit /deletevalue {current} numproc         2>nul >nul
-bcdedit /deletevalue {current} truncatememory  2>nul >nul
 bcdedit /deletevalue {current} removememory    2>nul >nul
-bcdedit /deletevalue {current} maxmem          2>nul >nul
+bcdedit /deletevalue {current} truncatememory  2>nul >nul
+bcdedit /deletevalue {default} removememory    2>nul >nul
+bcdedit /deletevalue {default} truncatememory  2>nul >nul
 bcdedit /set {default} bootmenupolicy standard 2>nul >nul
+
 
 :: Virtual Memory Paging File
 wmic computersystem where name="%computername%" set AutomaticManagedPagefile=True 2>nul >nul
