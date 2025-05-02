@@ -105,7 +105,7 @@ MODE 62,7
 
 cls
 echo.
-echo Wait..
+echo   Wait..
 
 
 :: Default MSConfig
@@ -130,68 +130,6 @@ powercfg /s 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 2>nul >nul
 
 
 :: Registry tweaks..
-For /F "Delims=" %%I In ('Dir /B /AD-S-H "C:\Users" ') Do (REG LOAD HKU\%%I C:\Users\%%I\NTUSER.DAT)
-For /f "tokens=*" %%A in ('reg query HKU') do (
-:: Autoload
-REG ADD "%%A\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.549981C3F5F10_8wekyb3d8bbwe\CortanaStartupId" /v UserEnabledStartupOnce /d 0 /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.549981C3F5F10_8wekyb3d8bbwe\CortanaStartupId" /v State /d 1                  /t REG_DWORD /f 2>nul >nul
-:: Accessibility Keyboard
-REG ADD "%%A\Control Panel\Accessibility\StickyKeys" /v Flags /t REG_SZ /d 506        /f 2>nul >nul
-REG ADD "%%A\Control Panel\Accessibility\Keyboard Response" /v Flags /t REG_SZ /d 122 /f 2>nul >nul
-REG ADD "%%A\Control Panel\Accessibility\ToggleKeys" /v Flags /t REG_SZ /d 58         /f 2>nul >nul
-:: Settings - Privacy - General
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v Enabled /d 0 /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\Control Panel\International\User Profile" /v HttpAcceptLanguageOptOut /d 1 /t REG_DWORD /f 2>nul >nul
-:: Settings - Privacy - Personalize handwriting and keyboard input
-REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization" /v RestrictImplicitInkCollection /d 1    /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization" /v RestrictImplicitTextCollection /d 1   /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore" /v HarvestContacts /d 0 /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Personalization\Settings" /v AcceptedPrivacyPolicy /d 0        /t REG_DWORD /f 2>nul >nul
-:: Background applications
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.Photos_8wekyb3d8bbwe" /v Disabled /d 1       /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.Photos_8wekyb3d8bbwe" /v DisabledByUser /d 1 /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.YourPhone_8wekyb3d8bbwe" /v Disabled /d 1            /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.YourPhone_8wekyb3d8bbwe" /v DisabledByUser /d 1      /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.WindowsMaps_8wekyb3d8bbwe" /v Disabled /d 1          /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.WindowsMaps_8wekyb3d8bbwe" /v DisabledByUser /d 1    /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.WindowsAlarms_8wekyb3d8bbwe" /v Disabled /d 1        /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.WindowsAlarms_8wekyb3d8bbwe" /v DisabledByUser /d 1  /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.MSPaint_8wekyb3d8bbwe" /v Disabled /d 1              /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.MSPaint_8wekyb3d8bbwe" /v DisabledByUser /d 1        /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.549981C3F5F10_8wekyb3d8bbwe" /v Disabled /d 1        /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.549981C3F5F10_8wekyb3d8bbwe" /v DisabledByUser /d 1  /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.People_8wekyb3d8bbwe" /v Disabled /d 1               /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.People_8wekyb3d8bbwe" /v DisabledByUser /d 1         /t REG_DWORD /f 2>nul >nul
-:: Reducing application startup speed
-REG ADD "%%A\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v StartupDelayInMSec /d 0 /t REG_DWORD /f 2>nul >nul
-:: Sound - When using a computer for conversation
-REG ADD "%%A\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /d 3 /t REG_DWORD /f 2>nul >nul
-:: Save attachment zone information
-REG ADD "%%A\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /d 1 /t REG_DWORD /f 2>nul >nul
-:: Disable SIUF
-REG ADD "%%A\Software\Microsoft\Siuf\Rules" /v "NumberOfSIUFInPeriod" /d 0 /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /d 0  /t REG_DWORD /f 2>nul >nul
-:: Disable TIPC
-REG ADD "%%A\Software\Microsoft\Input\TIPC" /v "Enabled" /d 0 /t REG_DWORD /f 2>nul >nul
-:: General. Disable track app launches
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d 0 /f /t REG_DWORD /f 2>nul >nul
-:: Speech. Prevent sending your voice input to Microsoft Speech services:
-REG ADD "%%A\SOFTWARE\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" /v "HasAccepted" /t REG_DWORD /d 0 /f /t REG_DWORD /f 2>nul >nul
-:: Feedback & diagnostics. Turn off tailored experiences
-REG ADD "%%A\Software\Policies\Microsoft\Windows\CloudContent" /v "DisableTailoredExperiencesWithDiagnosticData" /d 1 /t REG_DWORD /f 2>nul >nul
-:: Inking & Typing. Turn off Inking & Typing data collection
-REG ADD "%%A\Software\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /d 0 /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\Software\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /d 0  /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /d 1           /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /d 1          /t REG_DWORD /f 2>nul >nul
-:: Personalized Experiences. Disable feature
-REG ADD "%%A\Software\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsSpotlightFeatures" /d 1 /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableCloudOptimizedContent" /d 1    /t REG_DWORD /f 2>nul >nul
-:: Disable Cortana
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\Windows Search" /v "CortanaConsent" /d 0 /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "CortanaEnabled" /d 0         /t REG_DWORD /f 2>nul >nul
-REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "CanCortanaBeEnabled" /d 0    /t REG_DWORD /f 2>nul >nul
-)
 :: Offline maps
 REG ADD "HKLM\SYSTEM\Maps" /v AutoUpdateEnabled /d 0 /t REG_DWORD /f 2>nul >nul
 :: Autoload
@@ -322,6 +260,70 @@ REG ADD "HKLM\Software\Policies\Microsoft\Windows Defender\Spynet" /v "SubmitSam
 REG DELETE "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\MemoryManagement\PrefetchParameters" /v EnableSuperfetch /f 2>nul >nul
 :: QoS (Quality of Service)
 REG DELETE "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v NonBestEffortLimit                                         /f 2>nul >nul
+
+:: For all users
+For /F "Delims=" %%I In ('Dir /B /AD-S-H "C:\Users" ') Do (REG LOAD HKU\%%I C:\Users\%%I\NTUSER.DAT) 2>nul >nul
+For /f "tokens=*" %%A in ('reg query HKU') do (
+:: Autoload
+REG ADD "%%A\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.549981C3F5F10_8wekyb3d8bbwe\CortanaStartupId" /v UserEnabledStartupOnce /d 0 /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.549981C3F5F10_8wekyb3d8bbwe\CortanaStartupId" /v State /d 1                  /t REG_DWORD /f 2>nul >nul
+:: Accessibility Keyboard
+REG ADD "%%A\Control Panel\Accessibility\StickyKeys" /v Flags /t REG_SZ /d 506        /f 2>nul >nul
+REG ADD "%%A\Control Panel\Accessibility\Keyboard Response" /v Flags /t REG_SZ /d 122 /f 2>nul >nul
+REG ADD "%%A\Control Panel\Accessibility\ToggleKeys" /v Flags /t REG_SZ /d 58         /f 2>nul >nul
+:: Settings - Privacy - General
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v Enabled /d 0 /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\Control Panel\International\User Profile" /v HttpAcceptLanguageOptOut /d 1 /t REG_DWORD /f 2>nul >nul
+:: Settings - Privacy - Personalize handwriting and keyboard input
+REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization" /v RestrictImplicitInkCollection /d 1    /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization" /v RestrictImplicitTextCollection /d 1   /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore" /v HarvestContacts /d 0 /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Personalization\Settings" /v AcceptedPrivacyPolicy /d 0        /t REG_DWORD /f 2>nul >nul
+:: Background applications
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.Photos_8wekyb3d8bbwe" /v Disabled /d 1       /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.Photos_8wekyb3d8bbwe" /v DisabledByUser /d 1 /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.YourPhone_8wekyb3d8bbwe" /v Disabled /d 1            /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.YourPhone_8wekyb3d8bbwe" /v DisabledByUser /d 1      /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.WindowsMaps_8wekyb3d8bbwe" /v Disabled /d 1          /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.WindowsMaps_8wekyb3d8bbwe" /v DisabledByUser /d 1    /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.WindowsAlarms_8wekyb3d8bbwe" /v Disabled /d 1        /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.WindowsAlarms_8wekyb3d8bbwe" /v DisabledByUser /d 1  /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.MSPaint_8wekyb3d8bbwe" /v Disabled /d 1              /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.MSPaint_8wekyb3d8bbwe" /v DisabledByUser /d 1        /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.549981C3F5F10_8wekyb3d8bbwe" /v Disabled /d 1        /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.549981C3F5F10_8wekyb3d8bbwe" /v DisabledByUser /d 1  /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.People_8wekyb3d8bbwe" /v Disabled /d 1               /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.People_8wekyb3d8bbwe" /v DisabledByUser /d 1         /t REG_DWORD /f 2>nul >nul
+:: Reducing application startup speed
+REG ADD "%%A\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v StartupDelayInMSec /d 0 /t REG_DWORD /f 2>nul >nul
+:: Sound - When using a computer for conversation
+REG ADD "%%A\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /d 3 /t REG_DWORD /f 2>nul >nul
+:: Save attachment zone information
+REG ADD "%%A\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /d 1 /t REG_DWORD /f 2>nul >nul
+:: Disable SIUF
+REG ADD "%%A\Software\Microsoft\Siuf\Rules" /v "NumberOfSIUFInPeriod" /d 0 /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /d 0  /t REG_DWORD /f 2>nul >nul
+:: Disable TIPC
+REG ADD "%%A\Software\Microsoft\Input\TIPC" /v "Enabled" /d 0 /t REG_DWORD /f 2>nul >nul
+:: General. Disable track app launches
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d 0 /f /t REG_DWORD /f 2>nul >nul
+:: Speech. Prevent sending your voice input to Microsoft Speech services:
+REG ADD "%%A\SOFTWARE\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" /v "HasAccepted" /t REG_DWORD /d 0 /f /t REG_DWORD /f 2>nul >nul
+:: Feedback & diagnostics. Turn off tailored experiences
+REG ADD "%%A\Software\Policies\Microsoft\Windows\CloudContent" /v "DisableTailoredExperiencesWithDiagnosticData" /d 1 /t REG_DWORD /f 2>nul >nul
+:: Inking & Typing. Turn off Inking & Typing data collection
+REG ADD "%%A\Software\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /d 0 /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\Software\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /d 0  /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /d 1           /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /d 1          /t REG_DWORD /f 2>nul >nul
+:: Personalized Experiences. Disable feature
+REG ADD "%%A\Software\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsSpotlightFeatures" /d 1 /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableCloudOptimizedContent" /d 1    /t REG_DWORD /f 2>nul >nul
+:: Disable Cortana
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\Windows Search" /v "CortanaConsent" /d 0 /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "CortanaEnabled" /d 0         /t REG_DWORD /f 2>nul >nul
+REG ADD "%%A\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "CanCortanaBeEnabled" /d 0    /t REG_DWORD /f 2>nul >nul
+) 2>nul >nul
 
 
 :: Disabling unnecessary services
